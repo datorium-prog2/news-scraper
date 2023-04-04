@@ -16,16 +16,19 @@ async function performDelfiScraping() {
         }
     })
 
-    return cheerio.load(axiosResponse.data)
+    const $ = cheerio.load(axiosResponse.data)
+
+    const image = $('article:first-of-type img')
+    const imageSrc = image.attr('src')
+
+    console.log('imageSrc', imageSrc)
 }
 
 
 app.get('/', async (req, res) => {
-    const pageData = await performDelfiScraping()
+    await performDelfiScraping()
 
-    console.log(pageData("body"))
-
-  res.send('Hello World!')
+    res.send('Hello World!')
 })
 
 app.listen(port, () => {

@@ -18,17 +18,30 @@ async function performDelfiScraping() {
 
     const $ = cheerio.load(axiosResponse.data)
 
-    const image = $('article:first-of-type img')
+    const image = $('article:first-of-type img').first()
+    const heading = $('article:first-of-type .headline__title').first()
+    const anchor = $('article:first-of-type a').first()
     const imageSrc = image.attr('src')
+    const headingText = heading.text().trim()
+    const articleUrl = anchor.attr('href')
 
-    console.log('imageSrc', imageSrc)
+    return {
+        imageSrc: imageSrc,
+        headingText: headingText,
+        articleUrl: articleUrl,
+    }
 }
 
 
 app.get('/', async (req, res) => {
-    await performDelfiScraping()
+    const {imageSrc, headingText, articleUrl} = await performDelfiScraping()
 
-    res.send('Hello World!')
+    res.send(`
+        <a href="${articleUrl}" target="_blank">
+            <img src="${imageSrc}" alt="${headingText}" width="400">
+            <h2>${headingText}</h2>    
+        </a>
+    `)
 })
 
 app.listen(port, () => {

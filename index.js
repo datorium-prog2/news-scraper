@@ -94,8 +94,14 @@ app.get('/', async (req, res) => {
         performLsmScraping()
     ])
 
+    // no https://xn--kalendrs-m7a.lv/%C5%A1odien noskrāpēt šodienas vārda dienas jubilārus
+    // un ievietot viņus h5 tagā
     res.send(`
-        <div><h5>Šodien vārda dienu svin: <Parastos un paplašinātos vārdus></h5></div>
+        <div>
+             <h5>
+                Šodien vārda dienu svin: <Parastos un paplašinātos vārdus>
+             </h5>
+        </div>
         <div style="display: flex; gap: 10px;">
             <div>
                 <h1>Populārākā delfi ziņa</h1>

@@ -95,6 +95,7 @@ app.get('/', async (req, res) => {
     ])
 
     res.send(`
+        <div><h5>Šodien vārda dienu svin: <Parastos un paplašinātos vārdus></h5></div>
         <div style="display: flex; gap: 10px;">
             <div>
                 <h1>Populārākā delfi ziņa</h1>

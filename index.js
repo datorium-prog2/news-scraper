@@ -2,8 +2,12 @@ const express = require('express')
 const cheerio = require("cheerio")
 const axios = require("axios")
 
-const app = express()
 const port = 3000
+
+const app = express()
+
+app.set('view engine', 'ejs');
+
 
 const getDataFromUrl = async (url) => {
     // downloading the target web page
@@ -111,40 +115,15 @@ app.get('/', async (req, res) => {
         performBitcounScraping(),
     ])
 
-    res.send(`
-        <div>
-            <h1>Vārda dienas</h1>
-             <h3>
-                ${namesDayNames.join(', ')}
-             </h3>
-        </div>
-        <div style="display: flex; gap: 10px;">
-            <div>
-                <h1>Populārākā delfi ziņa</h1>
-                <a href="${delfiData.articleUrl}" target="_blank">
-                    <img src="${delfiData.imageSrc}" alt="${delfiData.headingText}" width="400">
-                    <h2>${delfiData.headingText}</h2>    
-                </a>
-            </div>
-            <div>
-                <h1>Populārākā tvnet ziņa</h1>
-                <a href="${tvnetData.articleUrl}" target="_blank">
-                    <img src="${tvnetData.imageSrc}" alt="${tvnetData.headingText}" width="400">
-                    <h2>${tvnetData.headingText}</h2>    
-                </a>
-            </div>
-            <div>
-                <h1>Populārākā lsm ziņa</h1>
-                <a href="${lsmData.articleUrl}" target="_blank">
-                    <img src="${lsmData.imageSrc}" alt="${lsmData.headingText}" width="400">
-                    <h2>${lsmData.headingText}</h2>    
-                </a>
-            </div>
-        </div>
-        <h1>Bitcoin vērtība</h1>
-        <h2>${bitcoinValue}</h2>
-    `)
+    res.render('index')
 })
+
+app.get('/test', (req, res) => {
+    const name = 'Seržs';
+
+   res.render('index', { name });
+});
+  
 
 
 app.listen(port, () => {

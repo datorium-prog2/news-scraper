@@ -1,0 +1,13 @@
+.names-day {
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
+
+.names-day__heading {
+    font-size: 20px;
+}
+
+.names-day__names {
+    font-size: 40px;
+}

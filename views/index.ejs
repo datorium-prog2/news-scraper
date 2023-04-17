@@ -2,38 +2,29 @@
 <html>
   <head>
     <title>Hello World</title>
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/styles.css">
+
   </head>
   <body>
-        <div>
-            <h1>Vārda dienas</h1>
-             <h3>
-                ${namesDayNames.join(', ')}
+        <div class="names-day">
+            <h1 class="names-day__heading">Vārda dienas</h1>
+             <h3 class="names-day__names">
+                <%= namesDayNames %>
              </h3>
         </div>
         <div style="display: flex; gap: 10px;">
-            <div>
-                <h1>Populārākā delfi ziņa</h1>
-                <a href="${delfiData.articleUrl}" target="_blank">
-                    <img src="${delfiData.imageSrc}" alt="${delfiData.headingText}" width="400">
-                    <h2>${delfiData.headingText}</h2>    
-                </a>
-            </div>
-            <div>
-                <h1>Populārākā tvnet ziņa</h1>
-                <a href="${tvnetData.articleUrl}" target="_blank">
-                    <img src="${tvnetData.imageSrc}" alt="${tvnetData.headingText}" width="400">
-                    <h2>${tvnetData.headingText}</h2>    
-                </a>
-            </div>
-            <div>
-                <h1>Populārākā lsm ziņa</h1>
-                <a href="${lsmData.articleUrl}" target="_blank">
-                    <img src="${lsmData.imageSrc}" alt="${lsmData.headingText}" width="400">
-                    <h2>${lsmData.headingText}</h2>    
-                </a>
-            </div>
+            <% for (let i = 0; i < news.length; i++) { %>
+                <div>
+                    <h1>Populārākā <%= news[i].name %> ziņa</h1>
+                    <a href="<%= news[i].data.articleUrl %>" target="_blank">
+                        <img src="<%= news[i].data.imageSrc %>" alt="<%= news[i].data.headingText %>" width="400">
+                        <h2><%= news[i].data.headingText %></h2>    
+                    </a>
+                </div>
+            <% } %>
         </div>
         <h1>Bitcoin vērtība</h1>
-        <h2>${bitcoinValue}</h2>
+        <h2><%=bitcoinValue%></h2>
   </body>
 </html>

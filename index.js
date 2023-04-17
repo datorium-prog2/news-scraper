@@ -7,7 +7,7 @@ const port = 3000
 const app = express()
 
 app.set('view engine', 'ejs');
-
+app.use(express.static('public'));
 
 const getDataFromUrl = async (url) => {
     // downloading the target web page
@@ -115,16 +115,27 @@ app.get('/', async (req, res) => {
         performBitcounScraping(),
     ])
 
-    res.render('index')
+    const news = [
+        {
+            name: "delfi",
+            data: delfiData
+        },
+        {
+            name: "tvnet",
+            data: tvnetData
+        },
+        {
+            name: "lsm",
+            data: lsmData
+        }
+    ]
+
+    res.render('index', {
+        news,
+        namesDayNames: namesDayNames.join(', '), 
+        bitcoinValue
+    })
 })
-
-app.get('/test', (req, res) => {
-    const name = 'Seržs';
-
-   res.render('index', { name });
-});
-  
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
